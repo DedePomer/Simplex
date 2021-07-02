@@ -77,10 +77,7 @@ namespace Симплекс_метод
             }   
 
         }
-        ////static void Swap<t>(ref t x)
-        //{
-        //    Console.WriteLine(x);
-        //}
+
         static void Main(string[] args)
         {
             string path = "Симплекс-метод";                        
@@ -124,21 +121,40 @@ namespace Симплекс_метод
             string otv = "F= "+(simp[n - 1, m - 1] * -1)+", ";
             mas1 = mas[0].Split(' ');
             int kolx = mas1.Length - 1;
-            for (int i = 0; i < kolx; i++)
+            int kolxi = n;
+            int a = 0;
+            int kol1 = 0;
+            for (int j = 0; j < kolx; j++) 
             {
-
+                kol1 = 0;
+                a = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    if (simp[i,j]==0)
+                    {
+                        a ++;
+                    }
+                    else if (simp[i, j] == 1)
+                    {
+                        kol1++;                        
+                        kolxi = i;
+                    }
+                }
+                if (a == n - 1 && kol1 == 1)
+                {
+                    otv = otv + "X" + (j + 1) + "=" + simp[kolxi, m - 1] + ", ";
+                }
+                else
+                {
+                    otv = otv + "X" + (j + 1) + "=0, ";
+                }
             }
 
 
+           
             path = "Ответ.csv";
-            //for (int i = 0; i < n; i++)
-            //{
-            //    for (int j = 0; j < m; j++)
-            //   {
-            //        Console.Write(simp[i, j] + " ");
-            //    }
-            //    Console.WriteLine();
-            //}
+            File.WriteAllText(path, otv);
+            Console.WriteLine("Ответ загружен в одноимённую папку.");           
 
         }
     }
